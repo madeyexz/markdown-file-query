@@ -1,3 +1,5 @@
+Latest Edit: 2023-04-19 14:39
+
 ## About The Project
 this project
 - utilizes [pinecone](https://www.pinecone.io/) database and OpenAI vector embedding model to embed and later query contents in Notion & Obsidian (`.csv` format files).
