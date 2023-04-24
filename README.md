@@ -1,4 +1,5 @@
-Latest Edit: 2023-04-19 14:39
+Last Edit: 2023-04-24 08:24
+This project is still under heavy development.
 
 ## About The Project
 this project
@@ -6,20 +7,37 @@ this project
 - is the author's practice of [Feynman technique](https://en.wikipedia.org/wiki/Learning_by_teaching).
 
 ## Rough Overview
-1. Notion/Obsidian files are converted into `.csv` file
-   1. TODO How to query the entire notion database?? 
-2. For each `.csv` file, they will be vector embedded using OpenAI's vector embedding model.
-3. The vector embedding is then uploaded to Pinecone database.
-4. Queries are also vector embedded using OpenAI's vector embedding model.
-5. Compare the vector embedding of the query with the vector embedding of the contents in Pinecone database using cosine similarity.
-6. Return the top 3 results, and pip the first result into GPT-3 to generate a natural language response of the query
-7. Deploy the app using Streamlit
-8. Embed the Steamlit app into Notion
 
+1. Notion/Obsidian files are converted into `.md` file
+2. For each `.md` file, they will be vector embedded using OpenAI's embedding model.
+3. The vectors are then uploaded to Pinecone vector database.
+4. Queries are also converted to vectors using OpenAI's vector embedding model and uploaded to Pinecone.
+5. To retrieve search results, we compare the query vector with vector database using Pinecone (by cosine similarity).
+6. Top 3 results are returned and fed into GPT-3 with the question, and GPT-3 will generate an answer (in natural language).
+7. App would be deployed on Streamlit.
+8. And the Streamlit app would be embedded into Notion (so you can use these functions in notion)
 ## Getting Started
 
 ### Prerequisites
-
+1. Install the dependencies
+    ``` bash
+    pip install -r requirements.txt
+    ```
+2. Prepare Pinecone API key and OpenAI API key
+    - Pinecone API key can be obtained from [here](https://app.pinecone.io/).
+    - OpenAI API key can be obtained from [here](https://platform.openai.com/account/api-keys).
+3. export the Pinecone and OpenAI API key to system environment using
+   ``` bash
+   export PINECONE_API_KEY="your_pinecone_api_key"
+   export OPENAI_API_KEY="your_openai_api_key"
+   ```
+   now in Python use
+   ``` python
+   import os
+   os.environ["PINECONE_API_KEY"]
+   os.environ["OPENAI_API_KEY"]
+   ```
+   to check if you have them exported to system environment, if `KeyError`, then restart the terminal upon completion (and your IDE if you are using one).
 ### Installation
 
 
