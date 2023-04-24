@@ -21,7 +21,7 @@ this project
 ### Prerequisites
 1. Install the dependencies
     ``` bash
-    pip install -r requirements.txt
+    pip install pinecone openai langchain tqdm
     ```
 2. Prepare Pinecone API key and OpenAI API key
     - Pinecone API key can be obtained from [here](https://app.pinecone.io/).
