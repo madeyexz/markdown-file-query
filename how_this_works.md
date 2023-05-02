@@ -1,7 +1,6 @@
 # Overview
 
 1. Notion/Obsidian files are converted into `.csv` file
-   1. TODO How to query the entire notion database?? 
 2. For each `.md` file, they will be vector embedded using OpenAI's vector embedding model.
 3. The vector embedding is then uploaded to Pinecone database.
 4. Queries are also converted to vectors using OpenAI's vector embedding model.
