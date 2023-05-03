@@ -10,7 +10,7 @@ pinecone.init(
 index_name = sys.argv[1]
 
 if index_name in pinecone.list_indexes():
-    pinecone.delete_index("example-index")
+    pinecone.delete_index(index_name)
     print(f"index: '{index_name}' successfully deleted")
 else:
     print(f"index: '{index_name}' not found in pinecone")
