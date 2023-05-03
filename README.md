@@ -3,6 +3,7 @@
 
 > *This project currently works best with English documents.*
 
+# Query Any Markdown File 
 ## About This Project
 this project
 - utilizes [Pinecone](https://www.pinecone.io/) vector database (VDB) and OpenAI (vector) embedding model to turn texts into vectors.
