@@ -11,12 +11,12 @@ this project
 - is probably a weaker duplicate of [llama_index](https://github.com/jerryjliu/llama_index#-dependencies), if you want a beautifully-crafted document query program, you should use llama_index instead of this toy.
 
 ### Walkthrough of this Program
-1. For each `.md` file, they will be cut into lots of small chunks using `langchain.textsplitter`
-2. For each chunk, it is vector embedded by OpenAI's embedding model (`langchain.embeddings.OpenAIEmbeddings`)
+1. Each markdown file will be cut into lots of small chunks using `langchain.textsplitter`
+2. Each chunck is turned into a vector via OpenAI's embedding model (`langchain.embeddings.OpenAIEmbeddings`)
 3. The vectors are then uploaded to `Pinecone` vector database.
-4. Queries are also converted to vectors using OpenAI's vector embedding model and uploaded to Pinecone.
+4. Queries are also converted to vectors using the vector embedding model and uploaded to Pinecone.
 5. To retrieve search results, we compare the query vector with vector database using Pinecone (by cosine similarity).
-6. Top 3 results are returned and fed into GPT-3 with the question, and GPT-3 will generate an answer (in natural language).
+6. Closest 3 results are retrieved and fed into GPT-3 along with the question, and GPT-3 will generate an answer in natural language.
 
 ### TODO
 - [ ] add a `--help` option
