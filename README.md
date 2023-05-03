@@ -1,4 +1,5 @@
-Last Edit: 2023-05-03 15:01
+[![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/madeyexz/markdown-file-query/blob/main/README.md)
+[![zh](https://img.shields.io/badge/lang-zh-blue.svg)](https://github.com/madeyexz/markdown-file-query/blob/main/README.zh.md)
 
 ## About The Project
 this project
