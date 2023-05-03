@@ -1,7 +1,7 @@
 [![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/madeyexz/markdown-file-query/blob/main/README.md)
 [![zh](https://img.shields.io/badge/lang-zh-blue.svg)](https://github.com/madeyexz/markdown-file-query/blob/main/README.zh.md)
 
-> This project currently works best with English documents.
+> *This project currently works best with English documents.*
 
 ## About This Project
 this project
