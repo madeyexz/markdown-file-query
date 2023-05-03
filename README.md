@@ -7,15 +7,17 @@ this project
 - is the author's practice of [Feynman technique](https://en.wikipedia.org/wiki/Learning_by_teaching).
 - is probably a weaker duplicate of [llama_index](https://github.com/jerryjliu/llama_index#-dependencies), if you want a beautifully-creafted document query service, you should use llama_index instead of this toy.
 
-## Walkthough of the Logic Behind this Program
-1. Prepare the markdown (`.md`) files.
-2. For each `.md` file, they will be vector embedded using OpenAI's embedding model.
-3. The vectors are then uploaded to Pinecone vector database.
+## Walkthough of this Program
+1. For each `.md` file, they will be cut into lots of small chunks using `langchain.textsplitter`
+2. For each chunk, it is vector embedded by OpenAI's embedding model (`langchain.embeddings.OpenAIEmbeddings`)
+3. The vectors are then uploaded to `Pinecone` vector database.
 4. Queries are also converted to vectors using OpenAI's vector embedding model and uploaded to Pinecone.
 5. To retrieve search results, we compare the query vector with vector database using Pinecone (by cosine similarity).
 6. Top 3 results are returned and fed into GPT-3 with the question, and GPT-3 will generate an answer (in natural language).
-7. App would be deployed on Streamlit.
-8. And the Streamlit app would be embedded into Notion (so you can use these functions in notion)
+
+## TODO
+- [ ] add a `--help` option
+- [ ] deploy to Streamlit
 ## Getting Started
 
 ### Prerequisites
