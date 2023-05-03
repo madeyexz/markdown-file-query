@@ -1,7 +1,7 @@
 [![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/madeyexz/markdown-file-query/blob/main/README.md)
 [![zh](https://img.shields.io/badge/lang-zh-blue.svg)](https://github.com/madeyexz/markdown-file-query/blob/main/README.zh.md)
 
-## About The Project
+## About This Project
 this project
 - utilizes [Pinecone](https://www.pinecone.io/) vector database (VDB) and OpenAI (vector) embedding model to turn texts into vectors.
 - works with any `.md` file, so it works perfectly with Notion & Obsidian (though for Notion you have to export it to `.md` manually first)
