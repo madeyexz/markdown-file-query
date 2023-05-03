@@ -1,5 +1,6 @@
 import os # to get system environment variables
 import sys # to parse system arguments
+import json # to dump and load data (lists) elegently
 import pinecone # vector database service, core of the VDB query
 from pathlib import Path # used to manipulate file paths elegently
 from tqdm.auto import tqdm # to show progress bar
@@ -26,7 +27,7 @@ def pinecone_init(index_name: str = 'notion-database'):
             dimension=1536,
             metric='cosine',
             # metric='euclidean',
-            metadata_config={'indexed': ['channel_id', 'published']}
+            metadata_config={'indexed': ['channel_id', 'published']} # useless code, guess why im not deleting this yet?
         )
     # connect to index
     index = pinecone.Index(index_name)
@@ -59,6 +60,10 @@ def md_digest(ps: list = list(Path("Notion_DB/").glob("**/*.md"))):
         docs.extend(splits)
         metadatas.extend([{"source": sources[i]}] * len(splits))
 
+    # after digestion, we save the docs to local json files for later queries to avoid re-encoding.
+    with open('docs.json', 'w') as f:
+        json.dump(docs, f)    
+    
     return docs
     # question, will the data be too big/unspecific for each chunk?
     # now len(docs) should be the number of vectors this is going to create
@@ -136,20 +141,24 @@ def main():
     index = pinecone_init("notion-database")
     directory, query = sys.argv[1], sys.argv[2]
     
-    # docs = md_digest(list(Path("Notion_DB/").glob("**/*.md")))
+    docs = md_digest(list(Path("Notion_DB/").glob("**/*.md")))
     
     print("digesting docs...")
     docs = md_digest(list(Path(directory).glob("**/*.md")))
+    # docs = md_digest()
+    
     print("uploading datas to pinecone...")
     pinecone_upload(docs, index)
     
     print("querying pinecone...")
     # query = input("ask a question")
     contents_str =  pinecone_query(query, docs)
+    
     print("querying gpt...")
     answer = ask_gpt3(query=query, contents_str=contents_str)
     
     # optimal, converts the answer and contents to text files
+    print("writing results to answer.txt and contents.txt")
     ans_cont_to_file(answer, contents_str)
     
     print(f"done! the answer to '{query}' is: '{answer}'")
