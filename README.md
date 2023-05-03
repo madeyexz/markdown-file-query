@@ -11,7 +11,7 @@ this project
 - is probably a weaker duplicate of [llama_index](https://github.com/jerryjliu/llama_index#-dependencies), if you want a beautifully-crafted document query program, you should use llama_index instead of this toy.
 
 ### Walkthrough of this Program
-1. Each markdown file will be cut into lots of small chunks using `langchain.textsplitter`
+1. Each markdown file in the target directory is cut into lots of small chunks using `langchain.textsplitter`
 2. Each chunck is turned into a vector via OpenAI's embedding model (`langchain.embeddings.OpenAIEmbeddings`)
 3. The vectors are then uploaded to `Pinecone` vector database.
 4. Queries are also converted to vectors using the vector embedding model and uploaded to Pinecone.
@@ -24,10 +24,10 @@ this project
 ## Getting Started
 
 ### Prerequisites
-1. Prepare Pinecone API key and OpenAI API key
-    - Pinecone API key can be obtained from [here](https://app.pinecone.io/).
-    - OpenAI API key can be obtained from [here](https://platform.openai.com/account/api-keys).
-2. export the Pinecone and OpenAI API key to system environment using
+1. Prepare Pinecone and OpenAI API key:
+    - Pinecone API key can be obtained [here](https://app.pinecone.io/).
+    - OpenAI API key can be obtained [here](https://platform.openai.com/account/api-keys).
+2. To export the Pinecone and OpenAI API key to system environment
    ``` bash
    export PINECONE_API_KEY="your_pinecone_api_key"
    export OPENAI_API_KEY="your_openai_api_key"
