@@ -8,6 +8,7 @@ this project
 - utilizes [Pinecone](https://www.pinecone.io/) vector database (VDB) and OpenAI (vector) embedding model to turn texts into vectors.
 - The main program works with any `.md` file, so it works perfectly with Notion & Obsidian (though for. Notion you have to export it to `.md` manually first)
 - is the author's practice of [Feynman technique](https://en.wikipedia.org/wiki/Learning_by_teaching).
+- is probably a weaker duplicate of [llama_index](https://github.com/jerryjliu/llama_index#-dependencies), if you want a beautifully-creafted document query service, you should use llama_index instead of this toy.
 
 ## Walkthough of the Logic Behind this Program
 1. Prepare the markdown (`.md`) files.
@@ -63,7 +64,7 @@ this project
     python3 delete_pinecone_index.py NAME_OF_INDEX
     ```
 2. For each query, you have to upload and embed everything again. 
-**This would be addressed soon.**
+**This would be addressed soon. `query_only.md` is under heavy dev**
 ## Acknowledgements
 Huge shout out to the open-source couumnity for providing straight-forward examples and comprehensive tutorials!
 - [openai-cookbook: using vector database for embeddings search](https://github.com/openai/openai-cookbook/blob/main/examples/vector_databases/Using_vector_databases_for_embeddings_search.ipynb)
