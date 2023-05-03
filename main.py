@@ -41,7 +41,6 @@ def md_digest(ps: list = list(Path("Notion_DB/").glob("**/*.md"))):
     '''This is the logic for ingesting Notion data into LangChain.'''
     
     # Here we load in the data in the format that Notion exports it in.
-    ps = list(Path("Notion_DB/").glob("**/*.md")) # set as default value
     data = []
     sources = []
     for p in ps:
@@ -140,8 +139,6 @@ def main():
     print("initiating pinecone index...")
     index = pinecone_init("notion-database")
     directory, query = sys.argv[1], sys.argv[2]
-    
-    docs = md_digest(list(Path("Notion_DB/").glob("**/*.md")))
     
     print("digesting docs...")
     docs = md_digest(list(Path(directory).glob("**/*.md")))

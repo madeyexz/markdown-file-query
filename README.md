@@ -58,7 +58,37 @@ this project
     python3 query_only.py "QUESTION"
     ```
 
-
+### Example
+1. I have a folder called `markdown_database` which contains a bunch of `.md` files, I want to query this database with the question "Whats the strange situation"
+    ``` bash
+    ❯ python3 main.py "markdown_database" "what's the strange situation"                                                        
+    ```     
+    ```text             
+    initiating pinecone index...
+    digesting docs...
+    uploading datas to pinecone...
+    92%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████          | 60/65 [00:29<00:02,  1.87it/s]
+    let's wait for 60 seconds to avoid RateLimitError... \(since im not a paid user\))
+    100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 60/60 [01:00<00:00,  1.00s/it]
+    100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 65/65 [01:32<00:00,  1.42s/it]
+    querying pinecone...
+    querying gpt...
+    writing results to answer.txt and contents.txt
+    done! the answer to 'what's the strange situation' is: '
+    The Strange Situation is a standardized procedure devised by Mary Ainsworth in the 1970s to observe attachment security in children within the context of caregiver relationships. It applies to infants between the age of nine and 18 months and involves a series of eight episodes lasting approximately 3 minutes each, whereby a mother, child and stranger are introduced, separated and reunited. The procedure is used to observe the quality of a young child’s attachment to his or her mother, and can also be applied to other attachment figures, such as God, through the use of Emotionally Focused Therapy (EFT) and religious beliefs, such as the saying “there are no atheists in foxholes”.'
+    ```
+2. If I want to query the same database again, I can use `query_only.py` to avoid re-embedding the documents.
+    ``` bash
+    ❯ python3 query_only.py "Who is Mary Ainsworth?"
+    ```
+    ``` text
+    connecting to pinecone index...
+    getting docs
+    querying pinecone...
+    querying gpt...
+    done! the answer to 'Who is Mary Ainsworth?' is: '
+    Mary Ainsworth was a developmental psychologist who devised the Strange Situation in the 1970s to observe attachment security in children within the context of caregiver relationships. The Strange Situation involves a series of eight episodes lasting approximately 3 minutes each, whereby a mother, child and stranger are introduced, separated and reunited. Ainsworth is also known for her observation that if you want to see the quality of a young child’s attachment to his or her mother, watch what the child does, not when Mother leaves, but when she returns. She is also known for her research on anxious babies and their inability to use their mothers as a secure base.'
+    ```
 ## Known Limitation
 1. If you use Pinecone, then whenever you want to query a new document (i.e. creating a new database), you should probably create a new Pinecone index (for you don't want answers from the old document), or delete the old index. This is because Pinecone does not support updating the index (yet). 
 
