@@ -3,7 +3,9 @@ from langchain.embeddings import OpenAIEmbeddings
 from langchain.prompts import PromptTemplate
 from langchain.llms import OpenAI
 from langchain.chains import LLMChain
-import os, sys
+import os, sys, json
+
+# This file is a trimmed and slightly-altered version of main.py
 
 def pinecone_init(index_name: str = 'notion-database'):
     '''initialize connection to pinecone (get API key at app.pinecone.io)'''
@@ -14,25 +16,23 @@ def pinecone_init(index_name: str = 'notion-database'):
     )
 
     # check if index already exists (it shouldn't if this is first time)
-    if index_name not in pinecone.list_indexes():
-        # if does not exist, create index
-        pinecone.create_index(
-            index_name,
-            dimension=1536,
-            metric='cosine',
-            # metric='euclidean',
-            metadata_config={'indexed': ['channel_id', 'published']}
-        )
-    # connect to index
-    index = pinecone.Index(index_name)
-    # view index status with
-    # index.describe_index_stats()
-    return index
+    if index_name in pinecone.list_indexes():
+        index = pinecone.Index(index_name)
+        return index
+    else:
+        print(f"index {index_name} not found")
+        quit()
 
-def pinecone_query(query: str = "who are you", docs=md_digest(), index=pinecone_init()):
+def get_docs(path: str = 'docs.json'):
+    '''get indexed docs from docs.json, which is a memory file of main.py'''
+    with open(path, 'r') as f:
+        docs = json.load(f)
+    return docs
+
+
+def pinecone_query(query: str = "who are you", docs=get_docs(), index=pinecone_init()):
     query_coord = OpenAIEmbeddings().embed_query(query)
     # retrieve from Pinecone
-    # get relevant contexts (including the questions)
     query_res = index.query(query_coord, top_k=3, include_metadata=True)
 
     content_ids = [
@@ -60,8 +60,12 @@ def ask_gpt3(query:str ="who are you",contents_str=pinecone_query()):
         prompt=prompt,
         # verbose=True,
         )
-
-    answer = chain.run(question=query,contents=contents_str)
+    # print(prompt.format(question=query, contents=contents_str)) # for debugging purpose
+    answer = chain.run(
+        question=query,
+        contents=contents_str,
+        #verbose=True
+        )
     return answer
 
 def ans_cont_to_file(answer, contents_str):
@@ -72,20 +76,20 @@ def ans_cont_to_file(answer, contents_str):
         h.write(contents_str)
 
 def main():
-    print("initiating pinecone index...")
+    try:
+        query = sys.argv[1]
+    except IndexError:
+        query = input("ask a question: ")
+    
+    print("connecting to pinecone index...")
     index = pinecone_init("notion-database")
-    directory, query = sys.argv[1], sys.argv[2]
-    
-    # docs = md_digest(list(Path("Notion_DB/").glob("**/*.md")))
-    
-    print("digesting docs...")
-    docs = md_digest(list(Path(directory).glob("**/*.md")))
-    print("uploading datas to pinecone...")
-    pinecone_upload(docs, index)
+    print("getting docs")
+    docs = get_docs()
     
     print("querying pinecone...")
     # query = input("ask a question")
-    contents_str =  pinecone_query(query, docs)
+    
+    contents_str =  pinecone_query(query, docs, index)
     print("querying gpt...")
     answer = ask_gpt3(query=query, contents_str=contents_str)
     
@@ -93,6 +97,7 @@ def main():
     ans_cont_to_file(answer, contents_str)
     
     print(f"done! the answer to '{query}' is: '{answer}'")
+
 
 if __name__ == "__main__":
     main()
