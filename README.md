@@ -15,7 +15,7 @@ this project
 5. To retrieve search results, we compare the query vector with vector database using Pinecone (by cosine similarity).
 6. Top 3 results are returned and fed into GPT-3 with the question, and GPT-3 will generate an answer (in natural language).
 
-## TODO
+### TODO
 - [ ] add a `--help` option
 - [ ] deploy to Streamlit
 ## Getting Started
