@@ -1,12 +1,9 @@
-Last Edit: 2023-05-03 11:28
-
-
-This project is still under heavy development.
+Last Edit: 2023-05-03 14:22
 
 ## About The Project
 this project
 - utilizes [Pinecone](https://www.pinecone.io/) vector database (VDB) and OpenAI (vector) embedding model to turn texts into vectors.
-- The main program works with any `.md` file, so it works perfectly with Notion & Obsidian (though for. Notion you have to export it to `.md` manually first)
+- The main program works with any `.md` file, so it works perfectly with Notion & Obsidian (though for Notion you have to export it to `.md` manually first)
 - is the author's practice of [Feynman technique](https://en.wikipedia.org/wiki/Learning_by_teaching).
 - is probably a weaker duplicate of [llama_index](https://github.com/jerryjliu/llama_index#-dependencies), if you want a beautifully-creafted document query service, you should use llama_index instead of this toy.
 
@@ -48,23 +45,25 @@ this project
     ```
 
 ### Usage
-1. Prepare the markdown files and put them in a folder called `Notion_DB` (or any name you like, but you have to change the code accordingly). It should be in the same directory as `main.py`.
-2. Run the program
+1. Prepare the markdown file(s) and put them in a `FOLDER` (or any name you like, but you have to change the code accordingly). Notice this should be in the same directory as `main.py`.
+2. If this is your first time querying a certain document, run the `main.py` program
     ``` bash
-    python3 main.py PATH_TO_DOCS QUESTION
+    python3 main.py "PATH_OF_FOLDER" "QUESTION"
     ```
 3. The query results and the reference GPT used to generate the answer will be saved in `answer.txt` and `contents.txt` respectively.
+4. If you want to query the same batch of documents again, then run the `query_only.py` to avoid re-embedding the documents.
+    ``` bash
+    python3 query_only.py "QUESTION"
+    ```
 
 
 ## Known Limitation
-1. If you use Pinecone, then whenever you want to query a new document (i.e. creating a new database), you should create a new Pinecone index, or delete the old index. This is because Pinecone does not support updating the index (yet). 
+1. If you use Pinecone, then whenever you want to query a new document (i.e. creating a new database), you should probably create a new Pinecone index (for you don't want answers from the old document), or delete the old index. This is because Pinecone does not support updating the index (yet). 
 
-    To do so
+    To delete the old index:
     ``` bash
     python3 delete_pinecone_index.py NAME_OF_INDEX
     ```
-2. For each query, you have to upload and embed everything again. 
-**This would be addressed soon. `query_only.md` is under heavy dev**
 ## Acknowledgements
 Huge shout out to the open-source couumnity for providing straight-forward examples and comprehensive tutorials!
 - [openai-cookbook: using vector database for embeddings search](https://github.com/openai/openai-cookbook/blob/main/examples/vector_databases/Using_vector_databases_for_embeddings_search.ipynb)
