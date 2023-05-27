@@ -8,7 +8,7 @@ this project
 - utilizes [Pinecone](https://www.pinecone.io/) vector database (VDB) and OpenAI (vector) embedding model to turn texts into vectors.
 - works with any `.md` file, so it works perfectly with Notion & Obsidian (though for Notion you have to export it to `.md` manually first)
 - is the author's practice of [Feynman technique](https://en.wikipedia.org/wiki/Learning_by_teaching).
-- is probably a weaker duplicate of [llama_index](https://github.com/jerryjliu/llama_index#-dependencies), if you want a beautifully-crafted document query program, you should use llama_index instead of this toy.
+- is probably a weaker duplicate of [privateGPT](https://github.com/imartinez/privateGPT) and [llama_index](https://github.com/jerryjliu/llama_index#-dependencies), if you want a beautifully-crafted document query program, you should use llama_index instead of this toy.
 
 ### Walkthrough of this Program
 1. Each markdown file in the target directory is cut into lots of small chunks using `langchain.textsplitter`
